@@ -4,63 +4,14 @@ pipeline{
 	        maven "maven 3.5.0"
 	    }
 	stages{
-    stage('Build Maven'){
+    stage('Start Project'){
 	    steps{
 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '13daaff0-994d-486d-8d1b-0f050daeeb26', url: 'https://github.com/ciimst/event-map-docker-simple.git']])		    
-	    sh 'mvn wrapper:wrapper'
-	    sh 'mvn clean install'
+	    sh 'bash Script.sh -r localhost:5000'
+	    sh 'helm uninstall event-map-chart'
+	    sh 'helm install event-map-chart ./event-map-helm-chart'
 	    }
 	}
-
-   //    stage('Sonarqube Analysis') {
-//            steps {
-//                withSonarQubeEnv('SonarQube') {
-//                    sh 'mvn clean package sonar:sonar' 
-//                }
-//            }
-//        }
-//        stage("Quality Gate"){
-//            steps {
-//                script{
-//                  sleep 10
-//                  timeout(time: 1, unit: 'HOURS') {
-//                      def qg = waitForQualityGate()
-//                      if (qg.status != 'OK') {
-//                          error "Pipeline aborted due to quality gate failure: ${qg.status}"
-//
-//                      }
-//                    }
-//		}
-//            }
-//	    post{
-//	      failure{
-//		  mail bcc: '', body: '''event-map-admin - SonarQube Quality Gate Test Failure!!!!
-//		  Thanks,
-//		  Ceylan''', cc: '', from: '', replyTo: '', subject: 'SONARQUBE QUALITY GATE IS FAILED!!', to: 'aysayparcasi@gmail.com'
-//		  echo 'SonarQube Quality Gate Test Failure!'  
-//	      }  
-//	  }  
-//        }  
-		
-	//stage('Unit Test'){
-        //    steps {
-       //         sh 'chmod +x ./mvnw'
-       //         sh './mvnw test'
-       //     }
-		//	
-         //   post {
-      //          always {
-	//	  junit '**/target/surefire-reports/TEST-*.xml'
-       //             
-       //         }	
-	//	failure {
-	//	  mail bcc: '', body: '''JUnit Test Failure!!!!
-	//	  Thanks,
-	//	  Ayse''', cc: '', from: '', replyTo: '', subject: 'JUNIT TEST', to: 'aysayparcasi@gmail.com'
-	//	  echo 'Junit Failure!'        
-	//	}
-	//}
-  //      }
 		
     stage('Build docker image for load kube image'){
       steps{
