@@ -1,15 +1,16 @@
 pipeline{
-agent any
+	agent any
+		tools{
+	        maven "maven 3.5.0"
+	    }
 	stages{
-
-	stage('Build Maven'){
-            steps{
-checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '13daaff0-994d-486d-8d1b-0f050daeeb26', url: 'https://github.com/ciimst/event-map-docker-simple.git']])		   //sh 'mvn -U clean install'
-		   // sh 'mvn compile'
-		    sh 'mvn package -DskipTests'
-                
-            }
-        }
+    stage('Build Maven'){
+	    steps{
+checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '13daaff0-994d-486d-8d1b-0f050daeeb26', url: 'https://github.com/ciimst/event-map-docker-simple.git']])		    
+	    sh 'mvn wrapper:wrapper'
+	    sh 'mvn clean install'
+	    }
+	}
 
    //    stage('Sonarqube Analysis') {
 //            steps {
