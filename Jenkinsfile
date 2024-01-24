@@ -25,7 +25,7 @@ checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs:
 	post {
 	failure {
 		mail bcc: '', body: '''Docker permission denied hatası olabilir. sudo chmod 666 /var/run/docker.sock komut satırı ile izinleri açmanız gerekmektedir.!!!!
-                Thanks, Ayse''', cc: '', from: '', replyTo: '', subject: 'Docker failed', to: 'aysayparcasi@gmail.com'
+                Thanks, Nur''', cc: '', from: '', replyTo: '', subject: 'Docker failed', to: 'nurefsan.karaca@argetek.ai'
                 echo 'e-mail OK!'
 
 	}
