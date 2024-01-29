@@ -1,3 +1,18 @@
+#!/bin/bash
+
+# Pom.xml dosyasının yolu
+POM_FILE_ADMİN="/home/imst/Desktop/Test-Admin-Nexus/event-map-docker-simple-admin--main/event-map-admin/pom.xml"
+
+# Eklemek istediğiniz repository'nin bilgileri
+REPO_ID="nexus-releases"
+REPO_URL="http://177.177.0.236:8081/repository/event-map-hibernate-entities/"
+
+# Repository eklemek için sed komutu
+sed -i '/<\/project>/i \    <repositories>\n        <repository>\n            <id>'"$REPO_ID"'<\/id>\n            <url>'"$REPO_URL"'<\/url>\n        <\/repository>\n    <\/repositories>' "$POM_FILE"
+
+echo "Repository eklendi: $REPO_ID - $REPO_URL"
+
+
 REGISRTY=docker.io/imst
 TAG=1.4.30
 MINIKUBE_DRIVER=docker
