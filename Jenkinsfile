@@ -13,24 +13,5 @@ checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs:
 	    }
 	}
 		
-    stage('Build docker image for load kube image'){
-      steps{
-        script{
-		sh 'docker build -t event_map_admin -f DockerfileBased .'
-		sh 'docker build -t event_map_admin -f DockerfileAdmin .'
-		sh 'docker images'
-        }
-      }
-
-	post {
-	failure {
-		mail bcc: '', body: '''Docker permission denied hatası olabilir. sudo chmod 666 /var/run/docker.sock komut satırı ile izinleri açmanız gerekmektedir.!!!!
-                Thanks, Nur''', cc: '', from: '', replyTo: '', subject: 'Docker failed', to: 'nurefsan.karaca@argetek.ai'
-                echo 'e-mail OK!'
-
-	}
-    }
-    }
-
   }
   }
