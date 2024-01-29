@@ -1,14 +1,28 @@
 #!/bin/bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Proje dizinleri
+ADMIN_PROJECT_DIR="${SCRIPT_DIR}/event-map-admin"
+CRONJOB_PROJECT_DIR="${SCRIPT_DIR}/event-map-cronjob"
+WEB_PROJECT_DIR="${SCRIPT_DIR}/event-map-web"
+
+
 # Pom.xml dosyasının yolu
-POM_FILE_ADMİN="/home/imst/Desktop/Test-Admin-Nexus/event-map-docker-simple-admin--main/event-map-admin/pom.xml"
+POM_FILE_ADMIN="${ADMIN_PROJECT_DIR}/pom.xml"
+POM_FILE_CRONJOB="${CRONJOB_PROJECT_DIR}/pom.xml"
+POM_FILE_WEB="${WEB_PROJECT_DIR}/pom.xml"
 
 # Eklemek istediğiniz repository'nin bilgileri
 REPO_ID="nexus-releases"
 REPO_URL="http://177.177.0.236:8081/repository/event-map-hibernate-entities/"
 
 # Repository eklemek için sed komutu
-sed -i '/<\/project>/i \    <repositories>\n        <repository>\n            <id>'"$REPO_ID"'<\/id>\n            <url>'"$REPO_URL"'<\/url>\n        <\/repository>\n    <\/repositories>' "$POM_FILE"
+sed -i '/<\/project>/i \    <repositories>\n        <repository>\n            <id>'"$REPO_ID"'<\/id>\n            <url>'"$REPO_URL"'<\/url>\n        <\/repository>\n    <\/repositories>' "$POM_FILE_ADMIN"
+
+sed -i '/<\/project>/i \    <repositories>\n        <repository>\n            <id>'"$REPO_ID"'<\/id>\n            <url>'"$REPO_URL"'<\/url>\n        <\/repository>\n    <\/repositories>' "$POM_FILE_CRONJOB"
+
+sed -i '/<\/project>/i \    <repositories>\n        <repository>\n            <id>'"$REPO_ID"'<\/id>\n            <url>'"$REPO_URL"'<\/url>\n        <\/repository>\n    <\/repositories>' "$POM_FILE_WEB"
 
 echo "Repository eklendi: $REPO_ID - $REPO_URL"
 
@@ -61,9 +75,5 @@ docker push $REGISRTY/event_map_web:$TAG
 docker image rm $REGISRTY/event_map_admin:$TAG
 docker image rm $REGISRTY/event_map_cronjob:$TAG
 docker image rm $REGISRTY/event_map_web:$TAG
-
-
-
-
 
 
