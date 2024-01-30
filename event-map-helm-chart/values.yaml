@@ -24,8 +24,8 @@ Dep:
       tag: 1.4.30
     command: 
       - java
-      - -Xms1g 
-      - -Xmx2g
+      - -Xms512m 
+      - -Xmx1g
       - -jar 
       - /target/event-map-web.jar
     containerport: 8443
@@ -35,7 +35,7 @@ Dep:
     image:
       repo: event_map_cronjob
       tag: 1.4.30
-    command: ["java", "-Xms1g", "-Xmx2g", "-jar", "/target/event-map-cronjob.jar"]
+    command: ["java", "-Xms512m", "-Xmx1g", "-jar", "/target/event-map-cronjob.jar"]
     containerport: 8444
 
   Postgre:
