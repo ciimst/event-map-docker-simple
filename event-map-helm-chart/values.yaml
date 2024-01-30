@@ -73,6 +73,36 @@ Svc:
 PostgisNetworkName: eventmap-network
 PostgisServiceName: eventmap-postgres
 
+postgresql:
+  enabled: false
+  fullnameOverride: "eventmap-postgres"
+  image:
+    registry: "177.177.0.236:5000"
+  global:
+    auth:
+      postgresPassword: "1qaz2wsx-"
+      username: "imst"
+      password: "1qaz2wsx-"
+      database: "event_map"
+  primary:
+    initdb:
+      user: "postgres"
+      password: "1qaz2wsx-"
+
+redis:
+  enabled: false
+  image:
+    registry: "177.177.0.236:5000"
+  global:
+    redis:
+      password: "1qaz2wsx-"
+  fullnameOverride: "eventmap-redis"
+  master:
+    containerPorts:
+      redis: 6379
+  replica:
+    replicaCount: 0
+
 imageLocation: docker.io/library
 
 imagePullPolicy: Always
